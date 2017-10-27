@@ -1,0 +1,28 @@
+from sys import stderr
+from sys import stdin
+from sys import stdout
+from sys import argv
+
+def print_noargs():
+	print("Missing arguments. Use 'terrascan --help' to see available options.")
+
+def print_help():
+	print("Usage: terrascan [OPTION]")
+	print("Description: terrascan is a unit testing application that identifies security vulnerabilites in terrafrom scripts.")
+	print("")
+	print("\t-d\t\tProvide the directory containing the terraform scripts to be scanned.")
+
+
+argi = 0
+argcnt = argv.__len__()
+
+if (argcnt == 1):
+	print_noargs()
+	exit(0)
+
+for argi in range(0, argcnt):
+	if argv[argi] == "--help":
+		print_help()
+
+
+exit(0)
