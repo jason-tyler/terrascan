@@ -1,7 +1,7 @@
 import unittest
 import os
 import terraform_validate
-from . import settings
+from src import settings
 
 
 class TestPublicExposure(unittest.TestCase):

@@ -3,7 +3,7 @@ TERRAFORM_LOCATION = ""
 
 
 #
-# The following paths are used to test the terrascan tests themselves.
+# The following paths are used to test the src tests themselves.
 # To run tests on these, please uncomment the appopriate line
 # Location of failing tests
 # TERRAFORM_LOCATION = "../infrastructure/fail"

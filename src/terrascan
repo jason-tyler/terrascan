@@ -1,0 +1,52 @@
+from sys import stderr
+from sys import stdin
+from sys import stdout
+from sys import argv
+from src import settings
+import os
+import sys
+
+def print_usage():
+    print("Usage: terrascan SOURCE [OPTION]")
+
+def print_noargs():
+    print_usage()
+    print("Missing arguments. Use 'terrascan --help' to see available options.")
+
+def print_help():
+	print_usage()
+	print("Description: terrascan is a unit testing application that identifies security vulnerabilites in terrafrom scripts.")
+	print("")
+	print("OPTIONS")
+	print("\t-T\tSet a class of tests to execute.")
+	print("\t-t\tSet a specific test from a class.")
+
+# Argument index
+argi = 0
+
+# Capture the arg count
+argcnt = sys.argv.__len__()
+
+# If a single argument was provided (the py file), then indicate that arguments are required.
+if (argcnt == 1):
+	print_noargs()
+	exit(0)
+
+# If --help was the first argument, then print the help instructions.
+if argv[1] == "--help":
+	print_help()
+	exit(0)
+
+if os.path.exists(argv[1]) == False:
+    print("Invalid source")
+    sys.stderr.write("Source directory '%s' does not exist or is not accessible.\n" % argv[1])
+    exit(1)
+
+# Set the terraform location variable with the provided source
+settings.TERRAFORM_LOCATION = argv[1]
+
+# TODO: Implement a KVP class that will contain pointers to the test class and functions.
+
+# TODO: Iterate over KVP class memmbers to execute unit tests.
+
+exit(0)
