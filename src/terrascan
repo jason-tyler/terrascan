@@ -3,6 +3,7 @@ from sys import stdin
 from sys import stdout
 from sys import argv
 from src import settings
+from src.test_runner import TestRunner
 import os
 import sys
 
@@ -19,7 +20,7 @@ def print_help():
 	print("")
 	print("OPTIONS")
 	print("\t-T\tSet a class of tests to execute.")
-	print("\t-t\tSet a specific test from a class.")
+	print("\t-t\tSet a specific test functions to execute.")
 
 # Argument index
 argi = 0
@@ -28,7 +29,7 @@ argi = 0
 argcnt = sys.argv.__len__()
 
 # If a single argument was provided (the py file), then indicate that arguments are required.
-if (argcnt == 1):
+if argcnt == 1:
 	print_noargs()
 	exit(0)
 
@@ -46,7 +47,16 @@ if os.path.exists(argv[1]) == False:
 settings.TERRAFORM_LOCATION = argv[1]
 
 # TODO: Implement a KVP class that will contain pointers to the test class and functions.
+runner = TestRunner()
 
-# TODO: Iterate over KVP class memmbers to execute unit tests.
+# TODO: Loop through argv to explicitly add test class or test functions.
+if argcnt >= 2:
+    for argi in range(1, argcnt):
+        if argv[argi] == "-T" and (argi + 1 <= argcnt and argv[argi+1] != EMPTY):
+            runner.add_test_class(argv[argi+1])
+
+# Execute the tests
+runner.exec()
+
 
 exit(0)
