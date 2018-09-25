@@ -1,16 +1,22 @@
+# -*- coding: utf-8 -*-
+
+"""Tests for public exposure configuration in terraform templates"""
+
 import unittest
 import os
 import terraform_validate
-from . import settings
 
 
 class TestPublicExposure(unittest.TestCase):
+
+    # Set this before running the Test Case
+    TERRAFORM_LOCATION = ''
 
     def setUp(self):
         # Tell the module where to find your terraform configuration folder
         self.path = os.path.join(
             os.path.dirname(
-                os.path.realpath(__file__)), settings.TERRAFORM_LOCATION)
+                os.path.realpath(__file__)), self.TERRAFORM_LOCATION)
         self.v = terraform_validate.Validator(self.path)
 
     def test_aws_alb_public(self):
@@ -77,7 +83,3 @@ class TestPublicExposure(unittest.TestCase):
         self.v.resources(
             'aws_s3_bucket').should_not_have_properties(
             ['website'])
-
-
-if __name__ == '__main__':
-    unittest.main()
